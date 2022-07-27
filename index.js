@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const server = express();
-const PORT = 3000;
+const { PORT = 3000 } = process.env;
 const morgan = require("morgan");
 const { client } = require("./db");
 client.connect();
@@ -16,14 +16,6 @@ server.use((req, res, next) => {
   console.log("<___Body Logger END___");
 
   next();
-});
-
-server.get("/background/:color", (req, res, next) => {
-  res.send(`
-      <body style="background: ${req.params.color};">
-        <h1>Hello World</h1>
-      </body>
-  `);
 });
 
 const apiRouter = require("./api");
